@@ -8,6 +8,9 @@ yarn-error.log*
 .uploadrc
 .DS_Store
 
-www/
+www/*.js
+www/*.css
+www/*.html
+www/**/*
 
 .idea/

@@ -48,6 +48,7 @@
     "cross-env": "^5.2.1",
     "lint-staged": "^10.2.9",
     "tar": "^4.4.13",
+    "umi-plugin-convention-routes": "0.0.2",
     "yorkie": "^2.0.0"
   },
   "cordova": {

@@ -1,6 +1,7 @@
 module.exports = {
-  extends: '@whalecloud/eslint-config',
+  extends: '@whalecloud/eslint-config/configurations/typescript',
   rules: {
+    'no-await-in-loop': 'off',
     // require parens in arrow function arguments
     // 要求箭头函数的参数使用圆括号
     // https://eslint.org/docs/rules/arrow-parens
@@ -32,5 +33,8 @@ module.exports = {
         message: '`with` is disallowed in strict mode because it makes code impossible to predict and optimize.',
       },
     ],
+  },
+  globals: {
+    document: true,
   },
 };

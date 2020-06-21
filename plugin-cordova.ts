@@ -17,18 +17,18 @@ async function changeCordovaConfigContent(configPath: string, url: string): Prom
   const contentRegex = /<content (.*)src="[^"]*"(.*)\/>/;
   const configContent = await readFile(configPath);
   await writeFile(configPath, configContent.toString().replace(contentRegex, `<content $1src="${url}"$2/>`));
-  return;
+  return undefined;
 }
 
 export default (api: IApi) => {
   const logger = {
-    info(...args) {
+    info(...args: any[]) {
       api.logger.info('[plugin-cordova]', ...args);
     },
-    log(...args) {
+    log(...args: any[]) {
       api.logger.log('[plugin-cordova]', ...args);
     },
-    error(...args) {
+    error(...args: any[]) {
       api.logger.error('[plugin-cordova]', ...args);
     },
   };
@@ -63,7 +63,7 @@ export default (api: IApi) => {
       first = false;
       const url = `http://${address.ip()}:${api.getPort()}`;
       logger.info(`Setting url(${url}) to content.src in config.xml`);
-      const err = await changeCordovaConfigContent(resolve(api.paths.cwd, 'config.xml'), url);
+      const err = await changeCordovaConfigContent(resolve(<string>api.paths.cwd, 'config.xml'), url);
       if (err) {
         logger.error(err);
       } else {
@@ -80,11 +80,15 @@ export default (api: IApi) => {
         logger.info(`Running cmd: ${cmd}`);
         const [program, ...args] = cmd.split(' ');
         const ps = spawn(program, args, { cwd: api.paths.cwd, stdio: 'inherit', detached: true });
-        ps.on('error', (err) => {
-          logger.error(err);
+        ps.on('error', (err1) => {
+          logger.error(err1);
         });
         ps.unref();
       }
     }
+  });
+
+  api.modifyRendererPath(() => {
+    return resolve(__dirname, 'customRenderer/clientRender.tsx');
   });
 };

@@ -21,7 +21,7 @@ class HomePage extends Component {
     return (
       <div className={styles.root}>
         <p className={styles.title}>{`Hello ${title} !`}</p>
-        <Link className={styles.link} to="/view/about">
+        <Link className={styles.link} to="/about">
           Go to about page.
         </Link>
       </div>

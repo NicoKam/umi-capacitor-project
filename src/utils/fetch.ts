@@ -16,12 +16,11 @@ const errorHandler = function(error: ResponseError) {
 const request = extend({
   // 为每个请求添加前缀
   prefix: '/api',
-  errorHandler: errorHandler,
+  errorHandler,
 });
 
 /* 处理data */
 const handleResponseData = (data: any) => {
-  console.log(data);
   return data;
 };
 

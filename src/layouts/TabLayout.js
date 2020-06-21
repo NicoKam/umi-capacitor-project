@@ -12,14 +12,14 @@ class TabLayout extends Component {
     const ojb = {
       hidden: true,
     };
-    if (pathname.indexOf('/view/home') >= 0) {
+    if (pathname.indexOf('/tab-view/home') >= 0) {
       ojb.selected = 'home';
-      if (pathname === '/view/home') {
+      if (pathname === '/tab-view/home') {
         ojb.hidden = false;
       }
-    } else if (pathname.indexOf('/view/list') >= 0) {
+    } else if (pathname.indexOf('/tab-view/list') >= 0) {
       ojb.selected = 'list';
-      if (pathname === '/view/list') {
+      if (pathname === '/tab-view/list') {
         ojb.hidden = false;
       }
     } else {
@@ -48,7 +48,7 @@ class TabLayout extends Component {
           icon={<HomeOutlined />}
           selectedIcon={<HomeOutlined />}
           selected={option.selected === 'home'}
-          onPress={() => this.localOnPress('/view/home')}
+          onPress={() => this.localOnPress('/tab-view/home')}
         >
           {option.selected === 'home' ? children : null}
         </TabBar.Item>
@@ -58,7 +58,7 @@ class TabLayout extends Component {
           icon={<InfoCircleOutlined />}
           selectedIcon={<InfoCircleOutlined />}
           selected={option.selected === 'list'}
-          onPress={() => this.localOnPress('/view/list')}
+          onPress={() => this.localOnPress('/tab-view/list')}
         >
           {option.selected === 'list' ? children : null}
         </TabBar.Item>

@@ -4,17 +4,12 @@
  */
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
-import TabLayout from './TabLayout';
 import styles from './BaseLayout.less';
 
 class BaseLayout extends Component {
   renderChildren = () => {
-    const { location, children } = this.props;
-    const { pathname } = location;
-    if (pathname === '/' || pathname.indexOf('/about') >= 0) {
-      return children;
-    }
-    return <TabLayout {...this.props} />;
+    const { children } = this.props;
+    return children;
   };
 
   render() {

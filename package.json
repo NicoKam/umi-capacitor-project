@@ -37,11 +37,13 @@
     "react-dom": "^16.13.1",
     "react-helmet": "^5.2.0",
     "react-router-dom": "^5.2.0",
+    "react-transition-group": "^4.4.1",
     "routes-watcher": "0.0.8",
     "umi": "^3.2.3",
     "umi-request": "^1.3.3"
   },
   "devDependencies": {
+    "@types/react-transition-group": "^4.4.0",
     "@whalecloud/eslint-config": "0.0.22",
     "babel-eslint": "^10.1.0",
     "cordova-plugin-whitelist": "^1.3.4",

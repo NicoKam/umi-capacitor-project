@@ -87,8 +87,4 @@ export default (api: IApi) => {
       }
     }
   });
-
-  api.modifyRendererPath(() => {
-    return resolve(__dirname, 'customRenderer/clientRender.tsx');
-  });
 };

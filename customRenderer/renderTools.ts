@@ -31,34 +31,28 @@ export function useOState<T extends object>(initialObj: T = {} as T): [T, (o: Pa
   return [state, setOState];
 }
 
-/**
- * 为history对象拦截go方法
- * @param history created by createBrowserHistory()
- */
-export function injectHistory(history: any): void {
-  const originGo = history.go.bind(history);
-  history.go = (num: number) => {
-    if (Math.abs(num) > 1) {
-      history.go(num - Math.sign(num));
-    }
-    return originGo(Math.sign(num));
-  };
+function repeat<T>(item: T, num: number = 1): T[] {
+  const res: T[] = [] as T[];
+  for (let i = 0; i < num; i += 1) {
+    res.push(item);
+  }
+  return res;
 }
 
 export function useHistoryStack(
   history: any,
   initStack: any[] = [],
   initIndex: number = 0,
-): [any[], number, { push: noop; pop: noop; replace: noop }] {
+): [any[], number, { push: noop; pop: noop; replace: noop; go: noop }] {
   const [{ offset, index, historyStack }, setState] = useOState({
     offset: 0,
     index: initIndex,
     historyStack: initStack,
   });
   const currStack = historyStack.slice(0, index);
-  const push = usePersistFn(() => {
+  const push = usePersistFn((num: number = 1) => {
     setState({
-      historyStack: [...currStack, cloneHistory(history)],
+      historyStack: [...currStack, ...repeat(cloneHistory(history), num)],
       index: index + 1,
     });
   });
@@ -71,17 +65,28 @@ export function useHistoryStack(
       historyStack: [...currStack.slice(0, currStack.length - 1), cloneHistory(history)],
     });
   });
-  const pop = usePersistFn(() => {
-    if (currStack.length > 1) {
+  const pop = usePersistFn((num: number = 1) => {
+    if (index > num) {
       setState({
-        index: index - 1,
+        index: index - num,
       });
     } else {
       /* 特殊情况，在中间的位置刷新了，导致之前的栈丢失，这种情况就需要从history中填充数据 */
       setState({
         historyStack: [cloneHistory(history)],
-        offset: offset - 1,
+        offset: offset + index - num - 1,
+        index: 1,
       });
+    }
+  });
+
+  const go = usePersistFn((num: number) => {
+    if (num > 0) {
+      push(num);
+    } else if (num < 0) {
+      pop(-num);
+    } else {
+      /* do nothing */
     }
   });
 
@@ -92,6 +97,7 @@ export function useHistoryStack(
       push,
       replace,
       pop,
+      go,
     },
   ];
 }

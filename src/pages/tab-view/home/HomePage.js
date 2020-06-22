@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'umi';
 import { connect } from 'dva';
+import Page from '@/components/Page';
 import styles from './HomePage.less';
 
 @connect(stores => ({ homeData: stores.home }))
@@ -19,12 +20,14 @@ class HomePage extends Component {
     const { homeData } = this.props;
     const { title } = homeData;
     return (
-      <div className={styles.root}>
-        <p className={styles.title}>{`Hello ${title} !`}</p>
-        <Link className={styles.link} to="/about">
-          Go to about page.
-        </Link>
-      </div>
+      <Page name="home">
+        <div className={styles.root}>
+          <p className={styles.title}>{`Hello ${title} !`}</p>
+          <Link className={styles.link} to="/about">
+            Go to about page.
+          </Link>
+        </div>
+      </Page>
     );
   }
 }

@@ -5,6 +5,7 @@ import invariant from 'tiny-invariant';
 import { useHistoryStack } from './renderTools';
 import './StackRouter.less';
 import { injectHistory } from './historyInject';
+import PersistContext from './PersistContext';
 
 interface StackRouterProps {
   routerContext: any;
@@ -14,16 +15,16 @@ const StackRouter: React.FC<StackRouterProps> = (props) => {
   const { routerContext: context } = props;
   const { history, staticContext, match } = context;
   const [historyStack, offsetIndex, { push, replace, pop, go }] = useHistoryStack(history);
-  const goRef = useRef<number>(0);
+  const goStepRef = useRef<number>(0);
 
   useEffect(() => {
     injectHistory(history, (goStep) => {
-      goRef.current = goStep;
+      goStepRef.current = goStep;
     });
     return history.listen((_: any, action: string) => {
-      if (goRef.current) {
-        go(goRef.current);
-        goRef.current = 0;
+      if (goStepRef.current) {
+        go(goStepRef.current);
+        goStepRef.current = 0;
       } else {
         switch (action) {
           case 'PUSH':
@@ -49,9 +50,10 @@ const StackRouter: React.FC<StackRouterProps> = (props) => {
         const curHistory = _index === historyStack.length - 1 ? history : h;
         const curLocation = h.location;
         const isShow = _index === historyStack.length - 1;
-        // if (!isShow) return null;
+        const key = offsetIndex + _index;
+        if (!isShow && !h.persist) return null;
         return (
-          <CSSTransition key={offsetIndex + _index} timeout={200}>
+          <CSSTransition key={key} timeout={200}>
             {/* double transition support persist mode */}
             <CSSTransition in={isShow} timeout={200} classNames={classNames}>
               <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: _index }}>
@@ -63,7 +65,7 @@ const StackRouter: React.FC<StackRouterProps> = (props) => {
                     staticContext,
                   }}
                 >
-                  {props.children}
+                  <PersistContext.Provider value={{ history: h }}>{props.children}</PersistContext.Provider>
                 </RouterContext.Provider>
               </div>
             </CSSTransition>
@@ -77,7 +79,7 @@ const StackRouter: React.FC<StackRouterProps> = (props) => {
 const StackRouterWrapper = ({ children }: { children: any }) => (
   <RouterContext.Consumer>
     {(context) => {
-      invariant(context, 'You should not use <Route> outside a <Router>');
+      invariant(context, 'You should not use <StackRouter> outside a <Router>');
       return <StackRouter routerContext={context}>{children}</StackRouter>;
     }}
   </RouterContext.Consumer>

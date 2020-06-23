@@ -1,3 +1,3 @@
-import BaseLayout from './BaseLayout';
+import HeaderLayout from './HeaderLayout';
 
-export default BaseLayout;
+export default HeaderLayout;

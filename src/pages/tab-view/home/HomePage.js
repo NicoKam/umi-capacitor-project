@@ -1,7 +1,7 @@
+import Page from '@/components/Page';
+import { connect } from 'dva';
 import React, { Component } from 'react';
 import { Link } from 'umi';
-import { connect } from 'dva';
-import Page from '@/components/Page';
 import styles from './HomePage.less';
 
 @connect(stores => ({ homeData: stores.home }))

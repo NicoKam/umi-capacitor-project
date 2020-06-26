@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
-    "outDir": "build/dist",
-    "module": "esnext",
-    "target": "esnext",
-    "lib": ["esnext", "dom"],
+    "module": "commonjs",
+    "target": "es2017",
+    "lib": ["es2017", "dom"],
     "sourceMap": true,
+    "noImplicitAny": false,
     "baseUrl": ".",
     "jsx": "react",
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
+    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "suppressImplicitAnyIndexErrors": true,
@@ -17,10 +18,14 @@
     "skipLibCheck": true,
     "experimentalDecorators": true,
     "strict": true,
+    "types" : ["node","jest"],
     "paths": {
       "@/*": ["./src/*"],
       "@@/*": ["./src/.umi/*"]
     }
   },
+  "include": [
+    "src/**/*",
+  ],
   "exclude": ["node_modules", "build", "dist", "scripts", "src/.umi/*", "webpack", "jest"]
 }

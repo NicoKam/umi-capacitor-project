@@ -11,3 +11,7 @@ umi
 platforms/*
 
 src/utils/tools/ramda.js
+
+*.d.ts
+
+plugin-capacitor/lib/

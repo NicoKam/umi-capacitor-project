@@ -1,0 +1,14 @@
+{
+  "name": "plugin-capacitor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "compile": "k-tools compile --no-babel-runtime"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "k-tools": "^0.1.6"
+  }
+}

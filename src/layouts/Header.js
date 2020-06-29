@@ -1,40 +1,33 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React, { useEffect, useRef } from 'react';
 import HeaderContext from './HeaderContext';
 
-class Header extends React.Component {
-  componentDidMount() {
-    this.updateHeader();
-  }
-
-  componentDidUpdate(prevProps) {
-    const { left, title, right } = this.props;
-    if (prevProps.left !== left || prevProps.title !== title || prevProps.right !== right) {
-      this.updateHeader();
+const Header = (props) => {
+  const { title, left, right, onLeftClick, onRightClick } = props;
+  const ref = useRef();
+  useEffect(() => {
+    if (ref.current.pushHeader) {
+      const pop = ref.current.pushHeader({ title, left, right, onLeftClick, onRightClick });
+      return pop;
     }
-  }
-
-  updateHeader = () => {
-    const { left, title, right } = this.props;
-    this.setHeader({ left, title, right });
-  };
-
-  render() {
-    return (
-      <HeaderContext.Consumer>
-        {({ setHeader }) => {
-          this.setHeader = setHeader;
-          return null;
-        }}
-      </HeaderContext.Consumer>
-    );
-  }
-}
+    return undefined;
+  }, [title, left, right, onLeftClick, onRightClick]);
+  return (
+    <HeaderContext.Consumer>
+      {({ pushHeader }) => {
+        ref.current = { pushHeader };
+        return null;
+      }}
+    </HeaderContext.Consumer>
+  );
+};
 
 Header.propTypes = {
   left: PropTypes.any,
   title: PropTypes.any,
   right: PropTypes.any,
+  onLeftClick: PropTypes.func,
+  onRightClick: PropTypes.func,
 };
 
 export default Header;

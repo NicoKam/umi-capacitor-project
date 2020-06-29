@@ -59,9 +59,13 @@ export default (api: IApi) => {
       first = false;
       const url = `http://${address.ip()}:${api.getPort()}`;
       logger.info(`Setting url(${url}) to server.url in capacitor.config.json`);
-      await changeCapacitorConfig(resolve(<string>api.paths.cwd, 'capacitor.config.json'), url);
+      await changeCapacitorConfig(resolve(<string>api.paths.cwd, 'capacitor.config.json'), url).catch(() => undefined);
       // const { capacitor = {} } = api.config;
-      runAndroid();
+      if (android) {
+        runAndroid();
+      } else if (ios) {
+        // runIos();
+      }
     }
   });
 };

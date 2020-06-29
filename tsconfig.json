@@ -2,7 +2,7 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es2017",
-    "lib": ["es2017", "dom"],
+    "lib": ["es2017", "DOM"],
     "sourceMap": true,
     "noImplicitAny": false,
     "baseUrl": ".",
@@ -25,7 +25,7 @@
     }
   },
   "include": [
-    "src/**/*",
+    "src/**/*"
   ],
   "exclude": ["node_modules", "build", "dist", "scripts", "src/.umi/*", "webpack", "jest"]
 }

@@ -1,9 +1,9 @@
 import Page from '@/components/Page';
 import Header from '@/layouts/Header';
 import { SettingOutlined } from '@ant-design/icons';
+import { Button, Modal } from 'antd-mobile';
 import React, { useState } from 'react';
-import { history, Link, Persist } from 'umi';
-import { Button } from 'antd-mobile';
+import { connect, history, Link, Persist } from 'umi';
 import styles from './AboutPage.less';
 
 const About = () => {
@@ -11,7 +11,17 @@ const About = () => {
   return (
     <Page name="about">
       <Header title="AboutPage" right={<SettingOutlined />} />
-      <Persist />
+      <Persist
+        onShow={() =>
+          history.block(
+            () =>
+              new Promise((resolve) => {
+                Modal.alert('Warn', 'Do you want to leave???', [{ text: 'Cancel' }, { text: 'Ok', onPress: resolve }]);
+              }),
+          )
+        }
+        onHide={() => console.log('hide')}
+      />
       <div className={styles.root}>
         <p className={styles.title}>This is About ...</p>
         <Link className={styles.link} to="/test1">
@@ -27,4 +37,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default connect()(About);

@@ -65,5 +65,3 @@ export async function run() {
   await build();
   await start();
 }
-
-run();

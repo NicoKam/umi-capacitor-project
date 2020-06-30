@@ -55,8 +55,8 @@
     "lint-staged": "^10.2.9",
     "shelljs": "^0.8.4",
     "tar": "^4.4.13",
-    "umi-plugin-animation-routes": "0.0.8",
-    "umi-plugin-convention-routes": "0.0.2",
+    "umi-plugin-animation-routes": "^0.0.13",
+    "umi-plugin-convention-routes": "^0.0.2",
     "yorkie": "^2.0.0"
   }
 }

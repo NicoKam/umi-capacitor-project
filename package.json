@@ -26,7 +26,6 @@
     "pre-commit": "lint-staged"
   },
   "dependencies": {
-    "@ali-whale/mobile": "^0.7.53",
     "@ant-design/icons": "^4.2.1",
     "@capacitor/android": "^2.2.0",
     "@umijs/preset-react": "^1.5.6",
@@ -57,8 +56,8 @@
     "lint-staged": "^10.2.9",
     "shelljs": "^0.8.4",
     "tar": "^4.4.13",
-    "umi-plugin-animation-routes": "^0.0.13",
-    "umi-plugin-capacitor": "0.0.7",
+    "umi-plugin-animation-routes": "^0.0.14",
+    "umi-plugin-capacitor": "^0.0.8",
     "umi-plugin-convention-routes": "^0.0.2",
     "yorkie": "^2.0.0"
   }

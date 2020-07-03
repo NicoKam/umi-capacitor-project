@@ -1,18 +1,13 @@
 import Page from '@/components/Page';
-import { HeaderLayout } from '@ali-whale/mobile';
-import { SettingOutlined } from '@ant-design/icons';
 import { Button, Modal } from 'antd-mobile';
 import React, { useState } from 'react';
 import { connect, history, Link, Persist } from 'umi';
 import styles from './AboutPage.less';
 
-const { Header } = HeaderLayout;
-
 const About = () => {
   const [sub, setSub] = useState(false);
   return (
     <Page name="about">
-      <Header title="AboutPage" right={<SettingOutlined />} />
       <Persist
         onShow={() =>
           history.block(
@@ -33,7 +28,6 @@ const About = () => {
           Go back.
         </a>
         <Button onClick={() => setSub(!sub)}>toggle sub</Button>
-        {sub && <Header title="subTitle" />}
       </div>
     </Page>
   );

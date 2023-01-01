@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "k-tools": "^0.1.6"
+    "k-tools": "^1.0.0"
   }
 }
